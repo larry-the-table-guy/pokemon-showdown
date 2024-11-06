@@ -305,7 +305,14 @@ export class DexTypes {
 
 		const typeName = id.charAt(0).toUpperCase() + id.substr(1);
 		if (typeName && this.dex.data.TypeChart.hasOwnProperty(id)) {
-			type = new TypeInfo({name: typeName, id, ...this.dex.data.TypeChart[id]});
+			const typeData = this.dex.data.TypeChart[id];
+			if (this.dex.parentMod) {
+				const parent = this.dex.mod(this.dex.parentMod);
+				if (typeData === parent.data.TypeChart[id]) {
+					type = parent.types.getByID(id);
+				}
+			}
+			if (!type) type = new TypeInfo({name: typeName, id, ...typeData});
 		} else {
 			type = new TypeInfo({name: typeName, id, exists: false, effectType: 'EffectType'});
 		}

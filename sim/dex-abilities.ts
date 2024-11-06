@@ -109,6 +109,16 @@ export class DexAbilities {
 			if ((this.dex.currentMod === 'gen7letsgo' || this.dex.gen <= 2) && ability.id === 'noability') {
 				(ability as any).isNonstandard = null;
 			}
+			if (this.dex.parentMod) {
+				const parent = this.dex.mod(this.dex.parentMod);
+				const parentAbility = parent.abilities.getByID(id);
+				if (abilityData === parent.data.Abilities[id] &&
+				    ability.isNonstandard === parentAbility.isNonstandard &&
+				    ability.desc === parentAbility.desc &&
+				    ability.shortDesc === parentAbility.shortDesc) {
+					ability = parentAbility;
+				}
+			}
 		} else {
 			ability = new Ability({
 				id, name: id, exists: false,

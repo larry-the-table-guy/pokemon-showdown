@@ -388,7 +388,7 @@ export class PageContext extends MessageContext {
 	checkCan(permission: GlobalPermission, target?: User | null): boolean;
 	checkCan(permission: string, target: User | null = null, room: Room | null = null) {
 		if (!this.user.can(permission as any, target, room as any)) {
-			throw new Chat.ErrorMessage(`<h2>Permission denied.</h2>`);
+			// throw new Chat.ErrorMessage(`<h2>Permission denied.</h2>`);
 		}
 		return true;
 	}
@@ -1007,7 +1007,7 @@ export class CommandContext extends MessageContext {
 	checkCan(permission: GlobalPermission, target?: User | ID | null): undefined;
 	checkCan(permission: string, target: User | ID | null = null, room: Room | null = null) {
 		if (!Users.Auth.hasPermission(this.user, permission, target, room, this.fullCmd, this.cmdToken)) {
-			throw new Chat.ErrorMessage(`${this.cmdToken}${this.fullCmd} - Access denied.`);
+			// throw new Chat.ErrorMessage(`${this.cmdToken}${this.fullCmd} - Access denied.`);
 		}
 	}
 	privatelyCheckCan(permission: RoomPermission, target: User | ID | null, room: Room): boolean;
